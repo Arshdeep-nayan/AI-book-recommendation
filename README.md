@@ -1,140 +1,102 @@
-# AI for Java Developers
+# AI Book Recommendation System
 
-Welcome to the AI for Java Developers project! This repository demonstrates how to integrate AI capabilities into Java applications, from simple command-line scripts to more complex Java applications.
+A Spring Boot backend application that generates intelligent book recommendations using the Google Gemini API.
+
+This project demonstrates how to integrate Generative AI into a Java backend system using direct API calls, without relying on external AI frameworks.
+
+---
 
 ## Project Overview
 
-This project showcases different approaches to working with AI, specifically focusing on integrating OpenAI's GPT models into Java applications. It provides examples ranging from basic curl commands to sophisticated Spring Boot implementations.
+This application exposes a REST endpoint that returns AI-generated book recommendations. It integrates with the Gemini API, processes the response using JSON parsing, and returns clean, readable output.
 
-## Project Requirements
+---
 
-- Java Development Kit (JDK) 23 or later
-- Maven for dependency management
-- OpenAI API key
+## Tech Stack
 
-## Dependencies
+- Java 23  
+- Spring Boot 3  
+- Maven  
+- Google Gemini API  
+- Java HTTP Client  
+- Jackson (for JSON parsing)  
 
-The project uses the following main dependencies:
+---
 
-- Spring Boot 3.3.4
-- Spring AI 1.0.0-M3 (for the Spring Boot example)
+## Requirements
 
-## Getting Started
+- JDK 23 or later  
+- Maven  
+- Gemini API Key  
 
-To get started with this project, follow these steps:
+---
 
-1. Ensure you have JDK 23 or later installed on your system.
-2. Clone this repository to your local machine.
-3. Set up your OpenAI API key as an environment variable:
-   ```
-   export OPENAI_API_KEY=your_api_key_here
-   ```
+## Setup & Installation
 
-## How to Run the Application
+### 1. Clone the Repository
 
-### Curl Command Example
+git clone https://github.com/Arshdeep-nayan/AI-book-recommendation.git  
+cd AI-book-recommendation  
 
-You can quickly test the OpenAI API using the provided curl command:
+---
 
-```bash
-#!/bin/zsh
-echo "Calling OpenAI..."
-PROMPT="Tell me something interesting about Java"
+### 2. Set up API Key
 
-curl https://api.openai.com/v1/chat/completions \
--H "Content-Type: application/json" \
--H "Authorization: Bearer $OPENAI_API_KEY" \
--d '{ "model": "gpt-4o", "messages": [{"role":"user", "content": "'"${PROMPT}"'"}] }'
-```
+Set your Gemini API key as an environment variable:
 
-### Java Application Example
+Windows (PowerShell)
 
-To run the simple Java application:
+[System.Environment]::SetEnvironmentVariable("GEMINI_API_KEY", "your_api_key_here", "User")
 
-1. Navigate to the root directory of the project.
-2. Compile and run the `Application.java` file:
+---
 
-```bash
-javac src/main/java/dev/danvega/Application.java
-java src/main/java/dev/danvega/Application
-```
+### 3. Run the Application
 
-### Spring Boot Application
+mvn spring-boot:run  
 
-To run the Spring Boot application:
+Or run BooksApplication.java from your IDE.
 
-1. Navigate to the root directory of the project.
-2. Run the following Maven command:
+---
 
-```bash
-mvn spring-boot:run
-```
+## API Endpoint
 
-3. Once the application is running, you can access the book recommendation endpoint by visiting `http://localhost:8080` in your web browser or using a tool like curl:
+GET /
 
-```bash
-curl http://localhost:8080
-```
+Returns an AI-generated book recommendation.
 
-## Relevant Code Examples
+Example:
 
-### Simple Java HTTP Client
+http://localhost:8080  
 
-Here's an example of how to make a request to the OpenAI API using Java's built-in HTTP client:
+Sample Response:
 
-```java
-var apiKey = System.getenv("OPENAI_API_KEY");
-var body = """
-        {
-            "model": "gpt-4o",
-            "messages": [
-                {
-                    "role": "user",
-                    "content": "Tell me an interesting fact about the Spring Framework"
-                }
-            ]
-        }""";
+For a superb blend of AI concepts and practical coding, "Hands-On Machine Learning..." ...
 
-var request = HttpRequest.newBuilder()
-        .uri(URI.create("https://api.openai.com/v1/chat/completions"))
-        .header("Content-Type", "application/json")
-        .header("Authorization", "Bearer " + apiKey)
-        .POST(HttpRequest.BodyPublishers.ofString(body))
-        .build();
+---
 
-var client = HttpClient.newHttpClient();
-var response = client.send(request, HttpResponse.BodyHandlers.ofString());
-System.out.println(response.body());
-```
+## How It Works
 
-### Spring Boot Controller
+1. User sends a request to the REST endpoint  
+2. Spring Boot sends a request to the Gemini API  
+3. The API returns a JSON response  
+4. Jackson parses the JSON  
+5. Clean text is returned to the client  
 
-Here's an example of a Spring Boot controller that uses Spring AI to generate book recommendations:
+---
 
-```java
-@RestController
-public class BookController {
+## Key Concepts Demonstrated
 
-    private final ChatClient chatClient;
+- REST API development using Spring Boot  
+- External API integration using Java HTTP Client  
+- JSON parsing using Jackson  
+- Environment variable-based configuration  
+- Debugging API errors and handling responses  
 
-    public BookController(ChatClient.Builder builder) {
-        this.chatClient = builder.build();
-    }
+---
 
-    @GetMapping("/")
-    public BookRecommendation home() {
-        return chatClient.prompt()
-                .user("Generate a book recommendation for a book on AI and coding. Please limit the summary to 100 words.")
-                .call()
-                .entity(BookRecommendation.class);
-    }
-}
-```
 
-## Conclusion
+## Author
 
-This project demonstrates the power and flexibility of integrating AI capabilities into Java applications. From simple scripts to more complex Spring Boot applications, you can leverage the OpenAI API to enhance your Java projects with AI-driven features.
+**Arshdeep Kumar**  
 
-We encourage you to explore the code, experiment with different prompts, and adapt the examples to your specific use cases. If you have any questions or suggestions, feel free to open an issue or submit a pull request.
-
-Happy coding with AI and Java!
+Developed a Spring Boot backend integrating Google Gemini API to build an AI-powered book recommendation system with clean response handling and secure configuration.
