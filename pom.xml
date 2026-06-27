@@ -11,8 +11,6 @@
 		<version>3.3.4</version>
 		<relativePath/>
 	</parent>
-
-	<!-- ✅ Your project identity -->
 	<groupId>com.arshdeep</groupId>
 	<artifactId>books</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
@@ -24,14 +22,11 @@
 	</properties>
 
 	<dependencies>
-
-		<!-- ✅ Spring Boot Web -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
-		<!-- ✅ Testing -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
